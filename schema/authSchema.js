@@ -31,14 +31,16 @@ const authSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// Middleware to automatically create a wallet after a user is saved
-authSchema.post("save", async function (doc, next) {
-  try {
-    await Wallet.create({ user: doc._id });
+// Middleware to automatically create a wallet when a new user is created
+authSchema.pre("save", async function (next) {
+  if (this.isNew) {
+    try {
+      await Wallet.create({ user: this._id });
+      next();
+    } catch (error) {
+      next(error);
+    }
+  } else {
     next();
-  } catch (error) {
-    next(error);
   }
 });
-
-module.exports = mongoose.model("users", authSchema);
