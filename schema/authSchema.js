@@ -44,3 +44,5 @@ authSchema.pre("save", async function (next) {
     next();
   }
 });
+
+module.exports = mongoose.model("users", authSchema);
