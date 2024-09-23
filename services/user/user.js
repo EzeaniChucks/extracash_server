@@ -28,10 +28,10 @@ const createWithdrawalIntentService = async (req, res) => {
   }
 
   try {
-    if (Number(amount) < 5000) {
+    if (Number(amount) < 2000) {
       return HttpForbidden(
         res,
-        `You can only withdraw amounts greater than N5000. If you don't have up to this in your wallet, we encourage you to grow it through daily tasks or referrals to surpass this threshold`
+        `You can only withdraw amounts greater than N2000. If you don't have up to this in your wallet, we encourage you to grow it through daily tasks or referrals to surpass this threshold`
       );
     }
 
